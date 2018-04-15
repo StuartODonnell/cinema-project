@@ -44,6 +44,8 @@ class Ticket
     return Customer.new(customer_hash)
   end
 
+  
+
   # def self.map_tickets(ticket_data)
   #   return ticket_data.map {|ticket_hash| Film.new(ticket_hash)}
   # end

@@ -1,9 +1,9 @@
 require_relative("../db/sql_runner")
-# require("film.rb")
+require_relative("film.rb")
 
 class Customer
   attr_reader :id
-  attr_accessor :name
+  attr_accessor :name, :funds
 
   def initialize (options)
     @id = options['id'].to_i if options['id']
@@ -39,10 +39,11 @@ class Customer
     end
 
   def films()
-    sql = "SELECT filmss.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1;"
+    sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1;"
     values = [@id]
-    locations = SqlRunner.run(sql, values)
+    films = SqlRunner.run(sql, values)
     return films.map{|film_hash| Film.new(film_hash)}
   end
 
+  
 end
