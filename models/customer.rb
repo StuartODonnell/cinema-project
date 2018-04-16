@@ -33,10 +33,10 @@ class Customer
   end
 
   def update()
-      sql = "UPDATE customers SET name = $1 WHERE id = $2;"
-      values = [@name, @id]
-      SqlRunner.run(sql, values)
-    end
+    sql = "UPDATE customers SET name = $1 WHERE id = $2;"
+    values = [@name, @id]
+    SqlRunner.run(sql, values)
+  end
 
   def films()
     sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1;"
@@ -45,17 +45,21 @@ class Customer
     return films.map{|film_hash| Film.new(film_hash)}
   end
 
-def customer_tickets
-  sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1;"
-  values = [@id]
-  films = SqlRunner.run(sql, values)
-  return films.map{|price_hash| Film.new(price_hash)}.count
-end
-# pets.each { |pet| p pet[:name] }
+  def customer_tickets
+    sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1;"
+    values = [@id]
+    films = SqlRunner.run(sql, values)
+    return films.map{|price_hash| Film.new(price_hash)}.count
+  end
 
-#   def subtract_from_funds
-#     current_funds = @funds[0]
-#   @fish.delete_at(0)
-#   return current_fish
-# end
+
+
+
+  # pets.each { |pet| p pet[:name] }
+
+  #   def subtract_from_funds
+  #     current_funds = @funds[0]
+  #   @fish.delete_at(0)
+  #   return current_fish
+  # end
 end
