@@ -45,5 +45,17 @@ class Customer
     return films.map{|film_hash| Film.new(film_hash)}
   end
 
-  
+def customer_tickets
+  sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1;"
+  values = [@id]
+  films = SqlRunner.run(sql, values)
+  return films.map{|price_hash| Film.new(price_hash)}.count
+end
+# pets.each { |pet| p pet[:name] }
+
+#   def subtract_from_funds
+#     current_funds = @funds[0]
+#   @fish.delete_at(0)
+#   return current_fish
+# end
 end
